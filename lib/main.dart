@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Layout - by GetStarted',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Layout - by GetStarted'),
@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
 
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
@@ -62,12 +63,11 @@ class Container extends StatelessWidget {
   Widget build(BuildContext context){
     return const Column(
       children: <Widget>[
+        ImageSection(
+          image:  'images/img-app-flutter.png',
+        ),
         SizedBox(
-          height: 250,
-          width: double.infinity,
-          child: ImageSection(
-            image:  'images/img-app-flutter.png',
-          ),
+          height: 16,
         ),
         Column(
           children: [
@@ -79,6 +79,11 @@ class Container extends StatelessWidget {
           padding: EdgeInsets.all(12),
           child: Text(
             'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ],
@@ -93,22 +98,26 @@ class Row1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return const Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconMoreLable(
-          icon: Icons.favorite,
-          label: 'Favoritos',
-        ),
-        IconMoreLable(
-          icon: Icons.access_time_sharp,
-          label: 'Acess Sharp',
-        ),
-        IconMoreLable(
-          icon: Icons.gamepad,
-          label: 'Gamepad SZ',
-        ),
-      ],
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(10, 16, 10, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          IconMoreLable(
+            icon: Icons.favorite,
+            label: 'Favoritos',
+          ),
+          IconMoreLable(
+            icon: Icons.access_time_sharp,
+            label: 'Acess Sharp',
+          ),
+          IconMoreLable(
+            icon: Icons.gamepad,
+            label: 'Gamepad SZ',
+          ),
+        ],
+      ),
     );
   }
 }
@@ -120,13 +129,29 @@ class Row2 extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return const Row(
-      
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Visite este lugar Incrivel !!!'),
-            Text('Por apenas 300R'),
+            Text(
+              'Visite este lugar Incrivel !!!',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              'Por apenas 300R',
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
           ],
         ),
         SizedBox(
@@ -136,9 +161,18 @@ class Row2 extends StatelessWidget {
           children: [
             Icon(
               Icons.star,
-              size: 18,
+              size: 22,
+              color: Color.fromRGBO(30, 136, 229, 1),
             ),
-            Text('41'),
+            SizedBox(
+              width:6,
+            ),
+            Text(
+              '41',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
           ],
         )
       ],
@@ -163,11 +197,17 @@ class IconMoreLable extends StatelessWidget {
       children: <Widget>[
         Icon(
           icon,
-          size: 24,
+          size: 28,
           color: Colors.blue[600],
         ),
         Text(
-          label
+          label,
+          selectionColor: Colors.blue[600],
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.blue[600],
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -181,6 +221,9 @@ class ImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(image);
+    return Image.asset(
+      image,
+      fit: BoxFit.cover,
+    );
   }
 }
