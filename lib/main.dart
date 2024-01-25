@@ -157,24 +157,57 @@ class Row2 extends StatelessWidget {
         SizedBox(
           width: 40,
         ),
-        Row(
-          children: [
-            Icon(
+        FavoriteWidget(),
+      ],
+    );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  const FavoriteWidget({super.key});
+
+  @override
+  State<FavoriteWidget> createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorite = true;
+  int _favoriteCount = 41;
+
+  void _toggleFavorite() {
+    setState(() {
+      if( _isFavorite ) {
+        _favoriteCount -= 1;
+        _isFavorite = false;
+      } else {
+        _favoriteCount += 1;
+        _isFavorite = true;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Row(
+      children: <Widget>[
+        IconButton(
+          onPressed: _toggleFavorite,
+          color: Colors.blue[600],
+          icon: _isFavorite
+          ? const Icon(
               Icons.star,
-              size: 22,
-              color: Color.fromRGBO(30, 136, 229, 1),
+            )
+          : const Icon(
+              Icons.star_border,
             ),
-            SizedBox(
-              width:6,
-            ),
-            Text(
-              '41',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ],
-        )
+        ),
+        const SizedBox(
+          width: 6,
+        ),
+        Text(
+          '$_favoriteCount',
+        ),
       ],
     );
   }
