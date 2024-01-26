@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -49,14 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Container(),
+      body: const Container1(),
        // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
-class Container extends StatelessWidget {
-  const Container({super.key});
+class Container1 extends StatelessWidget {
+  const Container1({super.key});
 
 
   @override
@@ -78,7 +79,7 @@ class Container extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(12),
           child: Text(
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 15,
@@ -86,11 +87,208 @@ class Container extends StatelessWidget {
             ),
           ),
         ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TapBoxA(),
+              ParenteWidget(),
+              
+            ],
+          ),
+        )
       ],
     );
   }
 }
+/* Muda parent e selfit
+class ParenteChangeColor extends StatefulWidget {
+  const ParenteChangeColor({
+    super.key,
+  });
 
+  @override
+  State<ParenteChangeColor> createState () => _ParenteChangeColor();
+}
+
+class _ParenteChangeColor extends State<ParenteChangeColor> {
+  bool _ativado = true;
+  bool _ativadoColor = false;
+
+  void mudaCor(bool recebe) {
+    if ( _ativadoColor ) {
+      setState(() {
+        _ativadoColor = !_ativadoColor;
+      });
+    } else {
+      _ativadoColor = !_ativadoColor;
+    }
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+  
+    return TapBoxC(
+      activiti: _ativado,
+      activitiColor: _ativadoColor,
+      onChanged: mudaCor,
+    );
+  }
+}
+
+class TapBoxC extends StatefulWidget {
+  const TapBoxC({
+    super.key,
+    required this.activiti,
+    required this.activitiColor,
+  });
+
+  final bool activiti;
+  final bool activitiColor;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  State<TapBoxC> createState () => _TapBoxC();
+}
+
+class _TapBoxC extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      onTap: onChanged,
+      child: Container(
+        alignment: Alignment.center,
+        color: activitiColor ? Colors.green[600] : Colors.blue[600],
+        width: 100,
+        height: 100,
+        child: Text(
+          activiti ? 'TapBoxC' : 'TapBoxC',
+        ),
+      ),
+    );
+  }
+}
+*/
+
+class TapBoxA extends StatefulWidget {
+  const TapBoxA ({super.key});
+
+  @override
+  State<TapBoxA> createState() => _TapBoxA();
+}
+
+class _TapBoxA extends State<TapBoxA> { 
+  bool _isActivet = true;
+
+  void _pressButton() {
+    if( _isActivet == true ) {
+      setState(() {
+        _isActivet = false;
+      });
+    } else {
+      setState(() {
+        _isActivet = true;
+      });
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return GestureDetector(
+      onTap: _pressButton,
+      child: Container(
+        color: _isActivet ? Colors.blue[600] : Colors.green[600] ,
+        height: 100,
+        width: 100,
+        alignment: Alignment.center,
+        child: Text(
+          _isActivet ? 'Active' : 'Desactive',
+        ),
+      ),
+    );
+  }
+}
+
+class TapBoxB extends StatelessWidget {
+  const TapBoxB({
+    super.key,
+    required this.text,
+    required this.funcao,
+    required this.isVerificad,
+  });
+
+  final String text;
+  final ValueChanged<bool> funcao;
+  final bool isVerificad;
+
+  void acionaFuncao() {
+    funcao(isVerificad);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      onTap: acionaFuncao,
+      child: Container(
+        width: 100,
+        height: 100,
+        color: isVerificad ? Colors.blue[600] : Colors.green[600],
+        alignment: Alignment.center,
+        child: Text(
+          isVerificad ? 'Active' : 'Deative',
+        ),
+      ),
+    );
+  }
+
+}
+
+class ParenteWidget extends StatefulWidget {
+  const ParenteWidget({super.key});
+
+  @override
+  State<ParenteWidget> createState () => _ParenteWidget();
+}
+
+class _ParenteWidget extends State<ParenteWidget> {
+  bool _isVerificad = true;
+
+
+  void _trocaBooleam(bool newValue){
+    if (_isVerificad) {
+      setState(() {
+        _isVerificad = !_isVerificad;
+      });
+    } else {
+      setState(() {
+        _isVerificad = !_isVerificad;
+      });
+    }
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return TapBoxB(
+      text: '1234',
+      isVerificad: _isVerificad,
+      funcao: _trocaBooleam,
+    );
+  }
+}
 
 class Row1 extends StatelessWidget {
   const Row1({super.key});
